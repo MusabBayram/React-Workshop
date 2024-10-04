@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink, Row } from 'reactstrap';
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Cart from './components/Cart.js';
@@ -8,12 +8,30 @@ import { categories, products } from './data/data.js';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    // Sayfa yüklendiğinde localStorage'dan sepeti yükle
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  
+  // Sepeti yükleme
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Sepeti kaydetme
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.id === product.id);
-
+  
       if (existingProduct) {
         return prevCart.map(item =>
           item.id === product.id
@@ -42,7 +60,7 @@ const App = () => {
 
   const handleClearCart = () => {
     setCart([]);
-  }
+  };
 
   const filteredProducts = selectedCategory ? products.filter(product => product.categoryId === selectedCategory.id) : products;
 
@@ -66,8 +84,7 @@ const App = () => {
                   <CategoryList categories={categories} onSelectedCategory={setSelectedCategory}></CategoryList>
                 </Col>
                 <Col sm="8">
-                  <ProductList products={filteredProducts}
-                    onAddToCart={handleAddToCart}></ProductList>
+                  <ProductList products={filteredProducts} onAddToCart={handleAddToCart}></ProductList>
                 </Col>
               </Row>
             }
@@ -75,20 +92,19 @@ const App = () => {
           <Route
             path='/cart'
             element={
-              <Cart
-                cartItems={cart}
-                onRemoveFromCart={handleRemoveFromCart}
-                onClearCart={handleClearCart}
-                onAddToCart={handleAddToCart}
-                onDecreaseQuantity={handleDecreaseQuantity}
+              <Cart 
+                cartItems={cart} 
+                onRemoveFromCart={handleRemoveFromCart} 
+                onClearCart={handleClearCart} 
+                onAddToCart={handleAddToCart} 
+                onDecreaseQuantity={handleDecreaseQuantity} 
               />
             }
-          >
-          </Route>
+          />
         </Routes>
       </Container>
     </Router>
   );
-
 }
+
 export default App;
