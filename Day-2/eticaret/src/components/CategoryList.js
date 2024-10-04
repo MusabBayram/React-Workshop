@@ -1,15 +1,23 @@
 import React from 'react';
-import {ListGroup, ListGroupItem} from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
-const CategoryList = ({categories, onSelectedCategory}) => {
-  if(!categories) return null;
+const CategoryList = ({ categories, onSelectedCategory, selectedCategories }) => {
+  if (!categories) return null;
 
-  return(
+  return (
     <ListGroup className='mt-2'>
-        {categories.map((category) =>(
-          <ListGroupItem key={category.id} onClick={()=> onSelectedCategory(category)}>{category.name}</ListGroupItem>
-        ))}
+      {categories.map((category) => (
+        <ListGroupItem 
+          key={category.id} 
+          onClick={() => onSelectedCategory(category)}
+          active={selectedCategories.some(selected => selected.id === category.id)} // Seçili kategorileri kontrol et
+          style={{ cursor: 'pointer' }}
+        >
+          {category.name}
+        </ListGroupItem>
+      ))}
     </ListGroup>
   );
-}
+};
+
 export default CategoryList;

@@ -5,16 +5,17 @@ import Cart from './components/Cart.js';
 import CategoryList from './components/CategoryList.js';
 import ProductList from './components/ProductList.js';
 import { categories, products } from './data/data.js';
+import ProductDetail from './components/ProductDetail.js';
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]); //aynı anda birden fazla kategori secimi için bu kısmı array olarak tanımlandı
   const [cart, setCart] = useState(() => {
     // Sayfa yüklendiğinde localStorage'dan sepeti yükle
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  
+
   // Sepeti yükleme
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -32,7 +33,7 @@ const App = () => {
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.id === product.id);
-  
+
       //Sepette var olan ürünün adetini güncelleme
       if (existingProduct) {
         return prevCart.map(item =>
@@ -67,7 +68,20 @@ const App = () => {
     setCart([]);
   };
 
-  const filteredProducts = selectedCategory ? products.filter(product => product.categoryId === selectedCategory.id) : products;
+  //Kategorileme işlemleri
+  const handleCategoryClick = (category) => {
+    if (selectedCategories.some(selected => selected.id === category.id)) {
+      // Kategori zaten seçiliyse, listeden çıkar
+      setSelectedCategories(selectedCategories.filter(selected => selected.id !== category.id));
+    } else {
+      // Kategori seçili değilse, listeye ekle
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
+  const filteredProducts = selectedCategories.length > 0 
+  ? products.filter(product => selectedCategories.some(category => category.id === product.categoryId))
+  : products;
 
   return (
     <Router>
@@ -86,7 +100,7 @@ const App = () => {
             element={
               <Row>
                 <Col sm="4">
-                  <CategoryList categories={categories} onSelectedCategory={setSelectedCategory}></CategoryList>
+                  <CategoryList categories={categories} onSelectedCategory={handleCategoryClick} selectedCategories={selectedCategories}  ></CategoryList>
                 </Col>
                 <Col sm="8">
                   <ProductList products={filteredProducts} onAddToCart={handleAddToCart}></ProductList>
@@ -97,15 +111,16 @@ const App = () => {
           <Route
             path='/cart'
             element={
-              <Cart 
-                cartItems={cart} 
-                onRemoveFromCart={handleRemoveFromCart} 
-                onClearCart={handleClearCart} 
-                onAddToCart={handleAddToCart} 
-                onDecreaseQuantity={handleDecreaseQuantity} 
+              <Cart
+                cartItems={cart}
+                onRemoveFromCart={handleRemoveFromCart}
+                onClearCart={handleClearCart}
+                onAddToCart={handleAddToCart}
+                onDecreaseQuantity={handleDecreaseQuantity}
               />
             }
           />
+          <Route path='/product/:id' element={<ProductDetail />} />
         </Routes>
       </Container>
     </Router>
