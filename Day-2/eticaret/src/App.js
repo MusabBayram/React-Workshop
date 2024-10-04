@@ -28,10 +28,12 @@ const App = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  //Sepete ürün ekleme
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.id === product.id);
   
+      //Sepette var olan ürünün adetini güncelleme
       if (existingProduct) {
         return prevCart.map(item =>
           item.id === product.id
@@ -44,6 +46,7 @@ const App = () => {
     });
   };
 
+  //Sepetteki ürün adetini değiştirme
   const handleDecreaseQuantity = (product) => {
     setCart((prevCart) => {
       return prevCart.map(item =>
@@ -54,10 +57,12 @@ const App = () => {
     });
   };
 
+  //Sepetten ürün çıkartma
   const handleRemoveFromCart = (product) => {
     setCart(cart.filter(item => item.id !== product.id));
   };
 
+  //Sepeti boşaltma
   const handleClearCart = () => {
     setCart([]);
   };
