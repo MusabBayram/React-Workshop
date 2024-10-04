@@ -10,8 +10,23 @@ const App = () =>{
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [cart, setCart] = useState([]);
 
-  const handleAddToCart = (product) =>{
-    setCart([...cart, product]);
+  const handleAddToCart = (product) => {
+    setCart((prevCart) => {
+      // Sepette bu ürün var mı kontrol et
+      const existingProduct = prevCart.find(item => item.id === product.id);
+  
+      if (existingProduct) {
+        // Eğer varsa, miktarını artır
+        return prevCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // Eğer yoksa, yeni bir ürün olarak ekle
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
   };
 
   const handleRemoveFromCart = (product) => {
