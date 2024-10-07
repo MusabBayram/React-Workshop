@@ -1,27 +1,26 @@
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Container } from 'react-bootstrap';
 import React, { useEffect, useState, useContext } from 'react';
 import CategoryList from '../components/CategoryList.js';
 import ProductList from '../components/ProductList.js';
 import ProductItem from '../components/ProductItem.js';
 import { Col, Row } from 'reactstrap';
 import CartContext from '../context/CartContext';
-import './Home.css'; // Stil dosyasını ekliyoruz
+import './Home.css'; // Stil dosyasını ekle
 
 function Home() {
     const [randomProducts, setRandomProducts] = useState([]);
-    const [numberOfProductsPerSlide, setNumberOfProductsPerSlide] = useState(3); // Maksimum 3 ürün göstereceğiz
+    const [numberOfProductsPerSlide, setNumberOfProductsPerSlide] = useState(3); 
     const { addToCart } = useContext(CartContext);
 
     useEffect(() => {
-        // Ekran genişliğine göre ürün sayısını ayarla
         const updateNumberOfProducts = () => {
             const screenWidth = window.innerWidth;
             if (screenWidth < 576) {
-                setNumberOfProductsPerSlide(1); // Mobil: 1 ürün
+                setNumberOfProductsPerSlide(1);
             } else if (screenWidth < 768) {
-                setNumberOfProductsPerSlide(2); // Küçük tablet: 2 ürün
+                setNumberOfProductsPerSlide(2);
             } else {
-                setNumberOfProductsPerSlide(3); // Tablet ve Masaüstü: 3 ürün
+                setNumberOfProductsPerSlide(3);
             }
         };
 
@@ -34,7 +33,6 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        // Ürünleri API'den çek
         fetch('https://fakestoreapi.com/products')
             .then(response => response.json())
             .then(data => {
@@ -43,14 +41,13 @@ function Home() {
             });
     }, []);
 
-    // Ürünleri slaytlara böl
     const slides = [];
     for (let i = 0; i < randomProducts.length; i += numberOfProductsPerSlide) {
         slides.push(randomProducts.slice(i, i + numberOfProductsPerSlide));
     }
 
     return (
-        <div>
+        <div className="home-container">
             <Carousel 
                 prevIcon={<span className="carousel-control-prev-icon custom-prev-icon" />} 
                 nextIcon={<span className="carousel-control-next-icon custom-next-icon" />}
@@ -74,14 +71,16 @@ function Home() {
                     </Carousel.Item>
                 ))}
             </Carousel>
-            <Row>
-                <Col sm="3">
-                    <CategoryList />
-                </Col>
-                <Col sm="9">
-                    <ProductList />
-                </Col>
-            </Row>
+            <Container>
+                <Row>
+                    <Col sm="3">
+                        <CategoryList />
+                    </Col>
+                    <Col sm="9">
+                        <ProductList />
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }

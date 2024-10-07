@@ -1,0 +1,41 @@
+/* Navbar arka planı ve genel stil */
+.custom-navbar {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar container stilini düzenleme */
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Öğeleri sola ve sağa hizala */
+    align-items: center;
+}
+
+/* Navbar markasının stili */
+.navbar-brand-custom {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Navbar öğelerinin (linklerin) stili */
+.nav-links {
+    display: flex; /* Linkleri yatayda hizala */
+    align-items: center;
+}
+
+.nav-link-custom {
+    color: #ffffff;
+    margin-left: 20px; /* Sağdaki öğeler arasında boşluk bırak */
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+/* Navbar linklerine hover efekti ekle */
+.nav-link-custom:hover {
+    color: #ffdd57;
+    text-decoration: none;
+}
