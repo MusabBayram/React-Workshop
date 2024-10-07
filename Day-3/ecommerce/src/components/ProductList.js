@@ -1,38 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
 import CartContext from '../context/CartContext';
+import CategoryContext from '../context/CategoryContext'; // Context'i ekledik
 import ProductItem from '../components/ProductItem.js';
 import { Col, Row } from 'reactstrap';
 
-function ProductList(){
+function ProductList() {
     const [products, setProducts] = useState([]);
-    const {category} = useParams();
-    const {addToCart} = React.useContext(CartContext);
+    const { addToCart } = React.useContext(CartContext);
+    const { selectedCategories } = useContext(CategoryContext); // Seçili kategoriler
 
-    useEffect(()=>{
-        const url = category ==='all' || !category ? `https://fakestoreapi.com/products` : `https://fakestoreapi.com/products/category/${category}`;
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(data => setProducts(data));
+    }, []);
 
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setProducts(data));
-    }, [category])
+    const filteredProducts = products.filter(product =>
+        selectedCategories.length === 0 || selectedCategories.includes(product.category)
+    );
 
-    return(
+    return (
         <div>
-            <h1>{category}</h1>
+            <h1>Products</h1>
             <Row>
-                {products.length > 0 ? (
-                    products.map(product =>(
+                {filteredProducts.length > 0 ? (
+                    filteredProducts.map(product => (
                         <Col sm="4" key={product.id} className='mb-4'>
-                            <ProductItem product={product} addToCart={addToCart}/>
+                            <ProductItem product={product} addToCart={addToCart} />
                         </Col>
                     ))
-                ): (
-                    <p>No product avaible in this category</p>
+                ) : (
+                    <p>No products available in the selected categories</p>
                 )}
             </Row>
         </div>
     );
-
 }
+
 export default ProductList;

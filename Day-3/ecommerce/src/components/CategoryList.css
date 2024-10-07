@@ -1,0 +1,23 @@
+/* Kategori listesi için genel stil */
+.list-group-item {
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd; /* İnce bir kenarlık */
+    border-radius: 5px; /* Köşeleri yuvarlama */
+    background-color: #f9f9f9; /* Hafif gri arka plan */
+    color: #333; /* Metin rengi */
+    cursor: pointer; /* İmleç değişimi */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Geçiş efekti */
+}
+
+/* Kategori üzerine gelinceki stil */
+.list-group-item:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Seçili kategori için stil */
+.active-category {
+    background-color: #007bff !important; /* !important ile öncelik ver */
+    color: white !important; /* !important ile öncelik ver */
+}
