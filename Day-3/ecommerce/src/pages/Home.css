@@ -1,0 +1,38 @@
+/* Geçiş oklarının rengini değiştirme */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(200deg); /* Renk değişikliği */
+}
+
+/* Okların pozisyonunu ayarlama */
+.carousel-control-prev,
+.carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+}
+
+/* Okları slaytın kenarlarına daha yakın yapma */
+.carousel-control-prev {
+    left: -25px;
+}
+
+.carousel-control-next {
+    right: -25px;
+}
+
+/* Slayt gösterge işaretleri (indicator) stil ayarı */
+.carousel-indicators {
+    bottom: -30px;
+}
+
+.carousel-indicators li {
+    background-color: #007bff;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #007bff;
+}

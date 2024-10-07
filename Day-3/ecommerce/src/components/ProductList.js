@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import CartContext from '../context/CartContext';
-import CategoryContext from '../context/CategoryContext'; // Context'i ekledik
+import CategoryContext from '../context/CategoryContext';
 import ProductItem from '../components/ProductItem.js';
 import { Col, Row } from 'reactstrap';
 

@@ -7,15 +7,15 @@ export function CategoryProvider({ children }) {
 
     const toggleCategory = (category) => {
         if (category === '') {
-            // "All" seçildiğinde, tüm kategorileri temizler
+            // "All" seçildiğinde tüm kategorileri temizler
             setSelectedCategories([]);
         } else {
             setSelectedCategories(prevSelected => {
                 if (prevSelected.includes(category)) {
-                    // Eğer kategori zaten seçilmişse, kaldır
+                    // Eğer kategori zaten seçilmişse kaldır
                     return prevSelected.filter(cat => cat !== category);
                 } else {
-                    // Eğer kategori seçilmemişse, ekle
+                    // Eğer kategori seçilmemişse ekle
                     return [...prevSelected, category];
                 }
             });
