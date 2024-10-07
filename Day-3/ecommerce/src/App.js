@@ -4,14 +4,14 @@ import Home from './pages/Home.js';
 import ProductPage from './pages/ProductPage.js';
 import CartPage from './pages/CartPage.js';
 import { CartProvider } from './context/CartContext.js';
-import { CategoryProvider } from './context/CategoryContext.js'; // Kategori sağlayıcıyı ekledik
+import { CategoryProvider } from './context/CategoryContext.js';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 function App() {
   return (
     <CartProvider>
-      <CategoryProvider> {/* Kategori sağlayıcıyı sarmaladık */}
+      <CategoryProvider>
         <Router>
           <NavbarComponents />
           <Container>

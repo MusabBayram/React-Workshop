@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import CartContext from "../context/CartContext";import alertify from "alertifyjs";
+import React, { useEffect, useState, useContext } from 'react';
+import { Container, Button } from 'reactstrap';
+import { useParams } from 'react-router-dom';
+import CartContext from '../context/CartContext';
 
-function ProductDetail(){
+function ProductDetail() {
     const [product, setProduct] = useState(null);
-    const {id} = useParams();
-    const {addToCart} = React.useContext(CartContext);
+    const { id } = useParams(); // URL'den ürün ID'sini al
+    const { addToCart } = useContext(CartContext);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${id}`)
-        .then(respone => respone.json())
-        .then(data => setProduct(data));
+            .then(response => response.json())
+            .then(data => setProduct(data));
     }, [id]);
 
-    if(!product) return <div>Loading...</div>
+    if (!product) return <div>Loading...</div>;
 
-    return(
-        <div>
-        <h1>{product.title}</h1>
-        <p>${product.price}</p>
-        <p>{product.description}</p>
-        <button onClick={()=>{ addToCart(product); alertify.success(`${product.title} added toı card!`);}}>Add to Cart</button>
-        </div>
+    return (
+        <Container>
+            <h1>{product.title}</h1>
+            <img src={product.image} alt={product.title} style={{ width: '300px', height: 'auto' }} />
+            <p>${product.price}</p>
+            <p>{product.description}</p>
+            <Button color='primary' onClick={() => addToCart(product)}>Add to Cart</Button>
+        </Container>
     );
 }
+
 export default ProductDetail;
