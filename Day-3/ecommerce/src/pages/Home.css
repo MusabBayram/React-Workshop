@@ -1,47 +1,55 @@
+/* Carousel alanı için stil */
+.carousel-container {
+    margin-top: 20px; /* Navbar'ın altında boşluk oluştur */
+    position: relative;
+    margin-bottom: 20px;
+}
+
 /* Geçiş oklarının stilini ve konumunu düzenleme */
-.carousel-control-prev,
-.carousel-control-next {
+.carousel .carousel-control-prev,
+.carousel .carousel-control-next {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: none; /* Arka planı kaldır */
-    border: none; /* Kenarlıkları kaldır */
-    outline: none; /* Dış kenarlıkları kaldır */
-    z-index: 1; /* Geçiş oklarını öne getir */
+    top: 50%; /* Dikeyde ortala */
+    transform: translateY(-50%); /* Dikine ortala */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    cursor: pointer;
 }
 
-/* Okların içindeki simgelerin stilini ve rengini değiştirme */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
+/* Okların kenarları daha belirgin olması için */
+.carousel .carousel-control-prev-icon,
+.carousel .carousel-control-next-icon {
     filter: invert(1); /* Rengi beyaz yapar */
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
-/* Okları slaytın kenarlarına daha yakın yapma */
-.carousel-control-prev {
-    left: 15px; /* Sol kenara daha yakın */
+/* Okları slaytın kenarlarına daha yakın yap */
+.carousel .carousel-control-prev {
+    left: -20px; /* Daha kenara yaklaştır */
 }
 
-.carousel-control-next {
-    right: 15px; /* Sağ kenara daha yakın */
+.carousel .carousel-control-next {
+    right: -20px; /* Daha kenara yaklaştır */
 }
 
 /* Slayt gösterge işaretleri (indicators) stil ayarı */
-.carousel-indicators {
-    bottom: -20px; /* Göstergeleri biraz aşağı al */
-    z-index: 1; /* Göstergeleri öne getir */
+.carousel .carousel-indicators {
+    bottom: -40px; /* Göstergeleri biraz aşağı al */
+    z-index: 1;
 }
 
-.carousel-indicators li {
-    background-color: #007bff; /* Renk değişikliği */
+.carousel .carousel-indicators li {
+    background-color: #007bff;
     width: 12px;
     height: 12px;
-    border-radius: 50%; /* Daire şekli ver */
+    border-radius: 50%;
 }
 
-.carousel-indicators .active {
-    background-color: #ff5733; /* Aktif gösterge için farklı renk */
+.carousel .carousel-indicators .active {
+    background-color: #007bff;
 }

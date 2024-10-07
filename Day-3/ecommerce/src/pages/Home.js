@@ -5,14 +5,15 @@ import ProductList from '../components/ProductList.js';
 import ProductItem from '../components/ProductItem.js';
 import { Col, Row } from 'reactstrap';
 import CartContext from '../context/CartContext';
-import './Home.css'; // Stil dosyasını ekle
+import './Home.css';
 
 function Home() {
     const [randomProducts, setRandomProducts] = useState([]);
-    const [numberOfProductsPerSlide, setNumberOfProductsPerSlide] = useState(3); 
+    const [numberOfProductsPerSlide, setNumberOfProductsPerSlide] = useState(3);
     const { addToCart } = useContext(CartContext);
 
     useEffect(() => {
+        // Carousel içindeki ürün sayısını güncelle
         const updateNumberOfProducts = () => {
             const screenWidth = window.innerWidth;
             if (screenWidth < 576) {
@@ -48,29 +49,31 @@ function Home() {
 
     return (
         <div className="home-container">
-            <Carousel 
-                prevIcon={<span className="carousel-control-prev-icon custom-prev-icon" />} 
-                nextIcon={<span className="carousel-control-next-icon custom-next-icon" />}
-            >
-                {slides.map((slide, index) => (
-                    <Carousel.Item key={index}>
-                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap' }}>
-                            {slide.map((product) => (
-                                <div 
-                                    key={product.id} 
-                                    style={{ 
-                                        margin: '0 10px', 
-                                        textAlign: 'center', 
-                                        flex: `0 0 ${100 / numberOfProductsPerSlide - 2}%`, 
-                                        maxWidth: `${100 / numberOfProductsPerSlide - 2}%` 
-                                    }}>
-                                    <ProductItem product={product} addToCart={addToCart} />
-                                </div>
-                            ))}
-                        </div>
-                    </Carousel.Item>
-                ))}
-            </Carousel>
+            <div className="carousel-container">
+                <Carousel
+                    prevIcon={<span className="carousel-control-prev-icon custom-prev-icon" />}
+                    nextIcon={<span className="carousel-control-next-icon custom-next-icon" />}
+                >
+                    {slides.map((slide, index) => (
+                        <Carousel.Item key={index}>
+                            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap' }}>
+                                {slide.map((product) => (
+                                    <div
+                                        key={product.id}
+                                        style={{
+                                            margin: '0 10px',
+                                            textAlign: 'center',
+                                            flex: `0 0 ${100 / numberOfProductsPerSlide - 2}%`,
+                                            maxWidth: `${100 / numberOfProductsPerSlide - 2}%`
+                                        }}>
+                                        <ProductItem product={product} addToCart={addToCart} />
+                                    </div>
+                                ))}
+                            </div>
+                        </Carousel.Item>
+                    ))}
+                </Carousel>
+            </div>
             <Container>
                 <Row>
                     <Col sm="3">

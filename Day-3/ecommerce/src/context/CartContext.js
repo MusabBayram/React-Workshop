@@ -59,8 +59,9 @@ export function CartProvider({ children }) {
     };
 
     const clearCart = () => {
-        setCart([]);
-        alertify.error('Cart cleared.');
+        setCart([]); 
+    localStorage.setItem('cart', JSON.stringify([])); // localStorage'daki sepet verilerini temizle
+    alertify.error('Cart cleared.');
     };
 
     // Toplam ürün sayısını hesapla (ürünlerin miktarına göre)

@@ -14,7 +14,7 @@
 
 /* Navbar markasının stili */
 .navbar-brand-custom {
-    color: #ffffff;
+    color: #ffffff !important;
     font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -27,7 +27,7 @@
 }
 
 .nav-link-custom {
-    color: #ffffff;
+    color: #ffffff !important;
     margin-left: 20px; /* Sağdaki öğeler arasında boşluk bırak */
     font-size: 1.2rem;
     text-transform: uppercase;
@@ -36,6 +36,6 @@
 
 /* Navbar linklerine hover efekti ekle */
 .nav-link-custom:hover {
-    color: #ffdd57;
+    color: #ffdd57 !important;
     text-decoration: none;
 }
